@@ -49,6 +49,9 @@ bool mkdirp(const char *dirname) {
         memcpy(temp, dirname, p-dirname);
         temp[p-dirname] = '\0';
         p++;
+        if (!strlen(temp)) {
+          continue;
+        }
 #if defined(_WIN32) || defined(_WIN64)
         if (CreateDirectory(temp, NULL) == FALSE) {
             if (GetLastError() != ERROR_ALREADY_EXISTS) {
