@@ -25,7 +25,8 @@ bool mkdirp(const char *dirname) {
     char       *temp;
     bool        ret = true;
 
-    temp = calloc(1, strlen(dirname)+1);
+    temp = calloc(1, strlen(dirname)+2);
+
     /* Skip Windows drive letter. */
 #if defined(_WIN32) || defined(_WIN64)
     if ((p = strchr(dirname, ':') != NULL) {
@@ -36,6 +37,12 @@ bool mkdirp(const char *dirname) {
 #if defined(_WIN32) || defined(_WIN64)
     }
 #endif
+
+    // Add support for paths not ending in a separator
+    // Because it checked for the next separator but didn't assign the whole path
+    if (temp[strlen(dirname) - 1] != SEP) {
+      temp[strlen(dirname)] = SEP;
+    }
 
     while ((p = strchr(p, SEP)) != NULL) {
         /* Skip empty elements. Could be a Windows UNC path or
