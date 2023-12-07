@@ -29,7 +29,7 @@ bool mkdirp(const char *dirname) {
 
     /* Skip Windows drive letter. */
 #if defined(_WIN32) || defined(_WIN64)
-    if ((p = strchr(dirname, ':') != NULL) {
+    if ((p = strchr(dirname, ':')) != NULL) {
         p++;
     } else {
 #endif
